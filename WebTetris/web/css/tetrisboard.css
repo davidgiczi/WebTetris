@@ -1,0 +1,22 @@
+body {
+
+text-align: center;
+background-color: powderblue;
+}
+
+table, td {
+  
+  font-size: 10px;
+  
+  border: 1px solid black;
+ 	
+  border-collapse: collapse;
+  
+}
+ 
+table {
+
+width:500px;
+height:700px;
+
+}
