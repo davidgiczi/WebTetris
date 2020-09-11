@@ -1,22 +1,12 @@
-body {
 
-text-align: center;
-background-color: powderblue;
+body{
+    text-align: center;
+    background-color: powderblue;
+
 }
 
-table, td {
-  
-  font-size: 10px;
-  
-  border: 1px solid black;
- 	
-  border-collapse: collapse;
-  
-}
- 
-table {
-
-width:500px;
-height:700px;
-
+div.nextShape{
+    position: absolute;
+    top: 300px;
+    left: 200px;
 }

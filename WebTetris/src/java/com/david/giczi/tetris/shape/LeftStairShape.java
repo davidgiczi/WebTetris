@@ -50,7 +50,7 @@ public class LeftStairShape extends AbstractShape {
             shapeRotationPosition.set(1, Boolean.TRUE);
         } else if (shapeRotationPosition.get(1)) {
 
-            shapeComponent.add(new ShapePosition(temp.get(0).getDisplayer_x() - 1,
+            shapeComponent.add(new ShapePosition(temp.get(0).getDisplayer_x() - 2,
                     temp.get(0).getDisplayer_y()));
             shapeComponent.add(new ShapePosition(temp.get(0).getDisplayer_x() - 1,
                     temp.get(0).getDisplayer_y()));

@@ -38,14 +38,12 @@ public class TShape extends AbstractShape {
             shapeComponent.add(temp.get(1));
             shapeComponent.add(new ShapePosition(temp.get(1).getDisplayer_x() - 1,
                     temp.get(1).getDisplayer_y() + 1));
-            shapeComponent.add(new ShapePosition(temp.get(1).getDisplayer_x(),
-                    temp.get(1).getDisplayer_y() + 1));
+            shapeComponent.add(temp.get(3));
             shapeComponent.add(new ShapePosition(temp.get(1).getDisplayer_x(),
                     temp.get(1).getDisplayer_y() + 2));
             deletedShapePosition.add(temp.get(0));
             deletedShapePosition.add(temp.get(2));
-            deletedShapePosition.add(temp.get(3));
-
+            
             shapeRotationPosition.set(0, Boolean.FALSE);
             shapeRotationPosition.set(1, Boolean.TRUE);
         } else if (shapeRotationPosition.get(1)) {
@@ -63,14 +61,12 @@ public class TShape extends AbstractShape {
 
             shapeComponent.add(temp.get(0));
             shapeComponent.add(temp.get(2));
-            shapeComponent.add(new ShapePosition(temp.get(0).getDisplayer_x() + 1,
-                    temp.get(0).getDisplayer_y() + 1));
-            shapeComponent.add(new ShapePosition(temp.get(0).getDisplayer_x(),
-                    temp.get(0).getDisplayer_y() + 2));
+            shapeComponent.add(temp.get(3));
+            shapeComponent.add(new ShapePosition(temp.get(2).getDisplayer_x(),
+                    temp.get(2).getDisplayer_y() + 1));
 
             deletedShapePosition.add(temp.get(1));
-            deletedShapePosition.add(temp.get(3));
-
+            
             shapeRotationPosition.set(2, Boolean.FALSE);
             shapeRotationPosition.set(3, Boolean.TRUE);
         } else if (shapeRotationPosition.get(3)) {
