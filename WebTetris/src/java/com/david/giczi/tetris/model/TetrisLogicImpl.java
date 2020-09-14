@@ -21,23 +21,16 @@ public class TetrisLogicImpl implements TetrisLogic{
 
     private List<Boolean> logicBoard;
     private List<AbstractShape> shapeStore;
-    private final boolean[] actualLevel;
-    private int level = 0;
     private int score = 0;
 
-    public TetrisLogicImpl() {
-        actualLevel = new boolean[10];
-        setupActualLevel(0);
+    public List<Boolean> getLogicBoard() {
+        return logicBoard;
     }
 
-    public int getLevel() {
-        return level;
+    public void setLogicBoard(List<Boolean> logicBoard) {
+        this.logicBoard = logicBoard;
     }
-
-    public void setLevel(int level) {
-        this.level = level;
-    }
-
+    
     public int getScore() {
         return score;
     }
@@ -46,59 +39,19 @@ public class TetrisLogicImpl implements TetrisLogic{
         this.score = score;
     }
 
-    public List<Boolean> getLogicBoard() {
-        return logicBoard;
-    }
-
     public List<AbstractShape> getShapeStore() {
         return shapeStore;
     }
 
-    public void increaseLevelValueByScoreValue() {
+   
+    
 
-        if (score >= 500 && actualLevel[0]) {
-            increaseLevelValue();
-            setupActualLevel(1);
-        } else if (score >= 1000 && actualLevel[1]) {
-            increaseLevelValue();
-            setupActualLevel(2);
-        } else if (score >= 5000 && actualLevel[2]) {
-            increaseLevelValue();
-            setupActualLevel(3);
-        } else if (score >= 10000 && actualLevel[3]) {
-            increaseLevelValue();
-            setupActualLevel(4);
-        } else if (score >= 15000 && actualLevel[4]) {
-            increaseLevelValue();
-            setupActualLevel(5);
-        } else if (score >= 20000 && actualLevel[5]) {
-            increaseLevelValue();
-            setupActualLevel(6);
-        } else if (score >= 25000 && actualLevel[6]) {
-            increaseLevelValue();
-            setupActualLevel(7);
-        } else if (score >= 30000 && actualLevel[7]) {
-            increaseLevelValue();
-            setupActualLevel(8);
-        } else if (score >= 35000 && actualLevel[8]) {
-            increaseLevelValue();
-            setupActualLevel(9);
-        }
+   
 
-    }
-
-    private void setupActualLevel(int index) {
-        for (int i = 0; i < actualLevel.length; i++) {
-            actualLevel[i] = i == index;
-        }
-    }
-
+    @Override
     public void initGame() {
 
-        this.level = 0;
         this.score = 0;
-
-        setupActualLevel(0);
 
         if (logicBoard == null) {
 
@@ -135,6 +88,7 @@ public class TetrisLogicImpl implements TetrisLogic{
         }
     }
 
+    @Override
     public void addShapeToLogicBoard(AbstractShape shape) {
 
         for (ShapePosition shapePosition : shape.shapeComponent) {
@@ -149,52 +103,10 @@ public class TetrisLogicImpl implements TetrisLogic{
 
     }
 
+    @Override
     public void addShapeToStore(AbstractShape shape) {
 
         shapeStore.add(shape);
-    }
-
-    public void increaseLevelValue() {
-        if (level < 9) {
-            level++;
-            setLevel(level);
-        }
-    }
-
-    public void decreaseLevelValue() {
-        if (0 < level) {
-            level--;
-            setLevel(level);
-        }
-
-    }
-
-    public int getDelay() {
-
-        switch (level) {
-
-            case 1:
-                return 800;
-            case 2:
-                return 600;
-            case 3:
-                return 400;
-            case 4:
-                return 200;
-            case 5:
-                return 150;
-            case 6:
-                return 100;
-            case 7:
-                return 80;
-            case 8:
-                return 60;
-            case 9:
-                return 50;
-            default:
-                return 1000;
-        }
-
     }
 
     @Override
@@ -1444,17 +1356,20 @@ public class TetrisLogicImpl implements TetrisLogic{
         return true;
     }
 
+    @Override
     public void moveLogicShape(AbstractShape shape) {
 
         shape.shapeComponent.forEach(component -> logicBoard.set(component.getLogicBoardIndex(), Boolean.TRUE));
 
     }
 
+    @Override
     public void clearLogicBoard(List<ShapePosition> deletedShapePosition) {
 
         deletedShapePosition.forEach(position -> logicBoard.set(position.getLogicBoardIndex(), Boolean.FALSE));
     }
 
+    @Override
     public void calcScore(AbstractShape shape) {
 
         if (shape instanceof PillarShape) {
@@ -1555,6 +1470,7 @@ public class TetrisLogicImpl implements TetrisLogic{
         });
     }
 
+    @Override
     public List<Integer> getCompleteTrueRowsIndex() {
 
         List<Integer> rowsIndex = new ArrayList<>();
@@ -1580,6 +1496,7 @@ public class TetrisLogicImpl implements TetrisLogic{
         return rowsIndex;
     }
 
+    @Override
     public void deleteCompleteTrueRowsFromShapeComponent(List<Integer> completeTrueRowsIndex) {
 
         List<ShapePosition> deletedPosition = new ArrayList<>();
@@ -1602,6 +1519,7 @@ public class TetrisLogicImpl implements TetrisLogic{
 
     }
 
+    @Override
     public void increaseRowNumberForShapeComponentInShapeStore(List<Integer> completeTrueRowsIndex) {
 
         completeTrueRowsIndex.forEach((rowIndex) -> {
@@ -1609,8 +1527,9 @@ public class TetrisLogicImpl implements TetrisLogic{
                 for (int i = 0; i < shape.shapeComponent.size(); i++) {
 
                     if (shape.shapeComponent.get(i).getDisplayer_y() < rowIndex) {
-                        shape.shapeComponent.set(i, new ShapePosition(shape.shapeComponent.get(i).getDisplayer_x(),
-                                shape.shapeComponent.get(i).getDisplayer_y() + 1));
+                        shape.shapeComponent.set(i, new ShapePosition(
+                                shape.shapeComponent.get(i).getLogicBoardIndex()
+                                        + ShapePosition.WIDTH_OF_BOARD));
                     }
 
                 }
@@ -1619,6 +1538,7 @@ public class TetrisLogicImpl implements TetrisLogic{
 
     }
 
+    @Override
     public void refreshLogicBoard() {
 
         clearLogicBoard();
@@ -1628,6 +1548,7 @@ public class TetrisLogicImpl implements TetrisLogic{
         });
     }
 
+    @Override
     public boolean isTheEndOfTheGame() {
 
         for (int i = 0; i < ShapePosition.WIDTH_OF_BOARD; i++) {
@@ -1639,6 +1560,7 @@ public class TetrisLogicImpl implements TetrisLogic{
         return false;
     }
 
+    @Override
     public void displayLogicBoard() {
 
         String ANSI_RESET = "\u001B[0m";

@@ -3,14 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Judut/Documents/NetBeansProjects/WebTetris/src/java/com/david/giczi/tetris/model/GameLogic.java</file>
             <file>file:/C:/Users/Judut/Documents/NetBeansProjects/WebTetris/web/css/tetrisboard.css</file>
-            <file>file:/C:/Users/Judut/Documents/NetBeansProjects/WebTetris/test/test/LeftStairShapeTest.java</file>
             <file>file:/C:/Users/Judut/Documents/NetBeansProjects/WebTetris/web/gameboard.jsp</file>
+            <file>file:/C:/Users/Judut/Documents/NetBeansProjects/WebTetris/src/java/com/david/giczi/tetris/model/TetrisLogicImpl.java</file>
             <file>file:/C:/Users/Judut/Documents/NetBeansProjects/WebTetris/src/java/com/david/giczi/tetris/servlets/InitGame.java</file>
             <file>file:/C:/Users/Judut/Documents/NetBeansProjects/WebTetris/web/script/tetrisboard.js</file>
-            <file>file:/C:/Users/Judut/Documents/NetBeansProjects/WebTetris/src/java/com/david/giczi/tetris/shape/LeftStairShape.java</file>
+            <file>file:/C:/Users/Judut/Documents/NetBeansProjects/WebTetris/src/java/com/david/giczi/tetris/model/ShapeFactoryImpl.java</file>
             <file>file:/C:/Users/Judut/Documents/NetBeansProjects/WebTetris/src/java/com/david/giczi/tetris/servlets/PlayGame.java</file>
+            <file>file:/C:/Users/Judut/Documents/NetBeansProjects/WebTetris/src/java/com/david/giczi/tetris/model/TetrisLogic.java</file>
         </group>
     </open-files>
 </project-private>
