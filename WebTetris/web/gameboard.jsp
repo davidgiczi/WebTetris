@@ -30,8 +30,11 @@
 
     </head>
     <body>
-
-        <br><br><br><br> <table align="center">
+        <br>
+        <h1 id="timer">0:00</h1>
+        <a id="stop" style="position: relative;right: 190px;cursor: pointer;color: white">Stop/Start</a>
+        <a id="newgame" style="position: relative;right: 170px;cursor: pointer;color: white">Új játék</a>
+        <br> <table align="center">
 
             <c:forEach begin="0" end="${row - 1}" varStatus="i">
                 
@@ -59,7 +62,11 @@
                 </tr>
         </c:forEach>
             </table>
-        </div>   
+        </div>
+        
+        
+       <font id="levelValue" style="position: absolute;left: 250px;top: 600px;font-size: 150px;color:#00aedb">1</font>
+       
         
     <input type="hidden" id="act" value="${actualshape}">
     <input type="hidden" id="actcolor" value="${actualshapecolor}">
