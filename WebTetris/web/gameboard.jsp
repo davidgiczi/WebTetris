@@ -17,12 +17,12 @@
                 border: 3px solid lightgray;
                 width:  500px;
                 height: 700px;
-                background-color: white;
+                background-color: lightgrey;
             }
 
             td{
                 border: 1px solid white;
-                background-color: white;
+                background-color: lightgray;
                 border-collapse: collapse;
             }
 

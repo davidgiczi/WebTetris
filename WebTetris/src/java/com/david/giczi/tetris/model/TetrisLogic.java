@@ -12,8 +12,14 @@ import javax.ejb.Local;
 @Local
 public interface TetrisLogic {
     
-   
-    void initGame();
+    List<Boolean> getLogicBoard();
+    void setLogicBoard(List<Boolean> logicBoard);
+    int getScore();
+    List<AbstractShape> getShapeStore();
+    void setShapeStore(List<AbstractShape> shapeStore);
+    void setScore(int score);
+    void initLogicBoard();
+    void clearLogicBoard();
     void addShapeToLogicBoard(AbstractShape shape);
     void addShapeToStore(AbstractShape shape);
     boolean canShapeBeMovedToLeft(AbstractShape shape);

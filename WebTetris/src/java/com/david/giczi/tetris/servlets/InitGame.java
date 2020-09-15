@@ -28,6 +28,7 @@ public class InitGame extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
        
+        request.getSession().invalidate();
         AbstractShape actualShape = shapeFactory.getShape();
         AbstractShape nextShape = shapeFactory.getShape();
         actualShape.addShapeToGameBoard();

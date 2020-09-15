@@ -56,6 +56,7 @@ function sendRequest(req) {
             var response = xmlHTTP.responseText;
 
             responseData = response.split(",");
+            clearDisplayer();
             displayShape();
 
         }
@@ -121,13 +122,18 @@ function downRequest() {
 function displayShape() {
 
     for (var i = 0; i < responseData.length; i++) {
-
-        if (i < 4) {
-            document.getElementById(responseData[i]).style.backgroundColor = actualShapeColor;
-        } else {
-            document.getElementById(responseData[i]).style.backgroundColor = "white";
-        }
+        
+     document.getElementById(responseData[i]).style.backgroundColor = actualShapeColor;
+        
     }
+}
+
+function clearDisplayer() {
+    
+     for (var i = 0; i < 200; i++) {
+         document.getElementById(i).style.backgroundColor = "lightgray";
+     }
+    
 }
 
 function stopStartGame() {

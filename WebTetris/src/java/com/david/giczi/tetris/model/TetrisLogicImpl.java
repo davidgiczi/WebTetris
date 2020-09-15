@@ -23,62 +23,47 @@ public class TetrisLogicImpl implements TetrisLogic{
     private List<AbstractShape> shapeStore;
     private int score = 0;
 
+    @Override
     public List<Boolean> getLogicBoard() {
         return logicBoard;
     }
 
+    @Override
     public void setLogicBoard(List<Boolean> logicBoard) {
         this.logicBoard = logicBoard;
     }
     
+    @Override
     public int getScore() {
         return score;
     }
 
+    @Override
     public void setScore(int score) {
         this.score = score;
     }
 
+    @Override
     public List<AbstractShape> getShapeStore() {
         return shapeStore;
     }
 
-   
-    
-
-   
-
     @Override
-    public void initGame() {
-
-        this.score = 0;
-
-        if (logicBoard == null) {
-
-            logicBoard = new ArrayList<>();
-            initLogicBoard();
-
-        } else {
-
-            clearLogicBoard();
-
-        }
-
-        if (shapeStore == null) {
-            shapeStore = new ArrayList<>();
-        } else {
-            shapeStore.clear();
-        }
+    public void setShapeStore(List<AbstractShape> shapeStore) {
+        this.shapeStore = shapeStore;
     }
-
-    private void initLogicBoard() {
+    
+   
+    @Override
+    public void initLogicBoard() {
         for (int i = 0;
                 i < ShapePosition.WIDTH_OF_BOARD * ShapePosition.LENGTH_OF_BOARD; i++) {
             logicBoard.add(Boolean.FALSE);
         }
     }
 
-    private void clearLogicBoard() {
+    @Override
+    public void clearLogicBoard() {
 
         for (int i = 0;
                 i < ShapePosition.WIDTH_OF_BOARD * ShapePosition.LENGTH_OF_BOARD; i++) {
