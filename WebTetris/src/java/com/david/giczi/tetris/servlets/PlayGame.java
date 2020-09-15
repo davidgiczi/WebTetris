@@ -58,8 +58,8 @@ public class PlayGame extends HttpServlet {
         AbstractShape actualShape = (AbstractShape) request.getSession().getAttribute("actual");
         
         if(logic.canShapeBeMovedToLeft(actualShape)){
-        List<ShapePosition> deletedPosition = actualShape.moveToLeft();
-        response.getWriter().append(createResponseString(actualShape.shapeComponent, deletedPosition));
+        actualShape.moveToLeft();
+        response.getWriter().append(createResponseString(actualShape.shapeComponent));
         request.getSession().setAttribute("actual", actualShape);
         }
     }
@@ -68,8 +68,8 @@ public class PlayGame extends HttpServlet {
         AbstractShape actualShape = (AbstractShape) request.getSession().getAttribute("actual");
         
         if(logic.canShapeBeMovedToRight(actualShape)){
-        List<ShapePosition> deletedPosition = actualShape.moveToRight();
-        response.getWriter().append(createResponseString(actualShape.shapeComponent, deletedPosition));
+        actualShape.moveToRight();
+        response.getWriter().append(createResponseString(actualShape.shapeComponent));
         request.getSession().setAttribute("actual", actualShape);
         }
     }
@@ -79,8 +79,8 @@ public class PlayGame extends HttpServlet {
         AbstractShape actualShape = (AbstractShape) request.getSession().getAttribute("actual");
         
         if(logic.canShapeBeMovedToDown(actualShape)){
-        List<ShapePosition> deletedPosition = actualShape.moveToDown();
-        response.getWriter().append(createResponseString(actualShape.shapeComponent, deletedPosition));
+        actualShape.moveToDown();
+        response.getWriter().append(createResponseString(actualShape.shapeComponent));
         request.getSession().setAttribute("actual", actualShape);
         }
         
@@ -92,17 +92,16 @@ public class PlayGame extends HttpServlet {
         AbstractShape shape = (AbstractShape) request.getSession().getAttribute("actual");
         
         if(logic.canShapeBeRotated(shape)){
-        List<ShapePosition> deletedPosition = shape.rotateShape();
-        response.getWriter().append(createResponseString(shape.shapeComponent, deletedPosition));
+        shape.rotateShape();
+        response.getWriter().append(createResponseString(shape.shapeComponent));
         request.getSession().setAttribute("actual", shape);
         }
     }
     
-    private String createResponseString(List<ShapePosition> shapeComponent, List<ShapePosition> deletedPosition){
+    private String createResponseString(List<ShapePosition> shapeComponent){
         
        StringBuilder build = new StringBuilder();
        shapeComponent.forEach(component -> build.append(component.getLogicBoardIndex()).append(","));
-       deletedPosition.forEach(position -> build.append(position.getLogicBoardIndex()).append(","));
        
        return build.toString().substring(0, build.toString().length() - 1);
     }
