@@ -3,6 +3,7 @@ package com.david.giczi.tetris.servlets;
 
 import com.david.giczi.tetris.model.ShapeFactory;
 import com.david.giczi.tetris.model.ShapePosition;
+import com.david.giczi.tetris.model.TetrisLogic;
 import com.david.giczi.tetris.shape.AbstractShape;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,37 +24,59 @@ public class InitGame extends HttpServlet {
     
     @EJB
     private ShapeFactory shapeFactory;
+    @EJB
+    private TetrisLogic logic;
    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
        
         request.getSession().invalidate();
+        
+        initLogicBoard();
+        
         AbstractShape actualShape = shapeFactory.getShape();
-        AbstractShape nextShape = shapeFactory.getShape();
-        actualShape.addShapeToGameBoard();
-        request.setAttribute("actualshape", getShapeComponentPosition(actualShape.shapeComponent));
-        request.setAttribute("nextshape", getShapeComponentPosition(nextShape.shapeComponent));
         request.getSession().setAttribute("actual", actualShape);
+        actualShape.addShapeToGameBoard();
+        logic.addShapeToLogicBoard(actualShape);
+        request.getSession().setAttribute("logicboard", logic.getLogicBoard());
+        
+        List<AbstractShape> shapeStore = new ArrayList<>();
+        shapeStore.add(actualShape);
+        request.getSession().setAttribute("shapestore", shapeStore);
+        
+        AbstractShape nextShape = shapeFactory.getShape();
         request.getSession().setAttribute("next", nextShape);
-        request.setAttribute("actualshapecolor", actualShape.shapeColor);
-        request.setAttribute("nextshapecolor", nextShape.shapeColor);
+        
+        logic.setScore(0);
+        request.getSession().setAttribute("score", 0);
+         
+        request.setAttribute("actual", createResponseString(actualShape, "actual"));
+        request.setAttribute("next", createResponseString(nextShape, "next"));
         request.setAttribute("row", ShapePosition.LENGTH_OF_BOARD);
         request.setAttribute("col", ShapePosition.WIDTH_OF_BOARD);
+           
         request.getRequestDispatcher("gameboard.jsp").forward(request, response);
               
     }
-
-    private List<Integer> getShapeComponentPosition(List<ShapePosition> shapeComponent){
-        List<Integer> shapePosition = new ArrayList<>();
+   
+    private void initLogicBoard(){
+        List<Boolean> logicBoard = new ArrayList<>();
+        logic.setLogicBoard(logicBoard);
+        logic.initLogicBoard();
+    }
+     
+    private String createResponseString(AbstractShape shape, String instruction){
         
-        shapeComponent.forEach(component -> shapePosition.add(component.getLogicBoardIndex()));
-        
-        return shapePosition;
+       StringBuilder build = new StringBuilder(instruction+",");
+       build.append(shape.shapeColor)
+            .append(",");
+       shape.shapeComponent.forEach(component -> build.append(component.getLogicBoardIndex()).append(","));
+     
+       return build.toString().substring(0, build.toString().length() - 1);
     }
     
-    
-     @Override
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);

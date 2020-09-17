@@ -14,10 +14,10 @@
         <link rel="stylesheet" type="text/css" media="screen" href="css/tetrisboard.css" />
         <style>
             table{
-                border: 3px solid lightgray;
+                border: 3px solid #bfbebe;
                 width:  500px;
                 height: 700px;
-                background-color: lightgrey;
+                background-color: lightgray;
             }
 
             td{
@@ -51,12 +51,12 @@
     </table>
      
         <div class="nextShape">
-            <table style="width: 200px;height: 75px;border: none;background-color: powderblue" align="center">
+            <table style="width: 200px;height: 75px;border: none;background-color: #dfe5c9" align="center">
                 <c:forEach begin="0" end="1" varStatus="i">
-                <tr style="background-color: powderblue;border: none">
+                <tr style="background-color: #dfe5c9;border: none">
                     <c:forEach begin="0" end="3" varStatus="j">
                      
-                        <td id="next${i.index * col + j.index}" style="border:none;background-color: powderblue"></td>
+                        <td id="next${i.index * col + j.index}" style="border:none;background-color: #dfe5c9"></td>
                     
                 </c:forEach>
                 </tr>
@@ -64,15 +64,19 @@
             </table>
         </div>
         
+       <div class="level">
+       <font style="position: relative;top: -150px;font-size: 20px">Tempó:</font>     
+       <font id="levelValue" style="font-size: 150px;">1</font>
+       </div> 
         
-       <font id="levelValue" style="position: absolute;left: 250px;top: 600px;font-size: 150px;color:#00aedb">1</font>
-       
+       <div class="score">
+       <font style="position: relative;top: -150px;font-size: 20px">Pontszám:</font>     
+       <font id="scoreValue" style="font-size: 150px;">0</font>
+       </div> 
         
-    <input type="hidden" id="act" value="${actualshape}">
-    <input type="hidden" id="actcolor" value="${actualshapecolor}">
-    <input type="hidden" id="next" value="${nextshape}">
-    <input type="hidden" id="nextcolor" value="${nextshapecolor}">
-
+        <input id="act" type="hidden" name="actualshape" value="${actual}">
+        <input id="next" type="hidden" name="nextshape" value="${next}">
+        
     <script src="script/tetrisboard.js"></script>
 
 </body>

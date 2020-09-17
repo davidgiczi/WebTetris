@@ -26,13 +26,12 @@ public interface TetrisLogic {
     boolean canShapeBeMovedToRight(AbstractShape shape);
     boolean canShapeBeMovedToDown(AbstractShape shape);
     boolean canShapeBeRotated(AbstractShape shape);
-    void moveLogicShape(AbstractShape shape);
-    void clearLogicBoard(List<ShapePosition> deletedShapePosition);
+    void addDeletedPositionToLogicBoard(List<ShapePosition> deletedShapePosition);
     void calcScore(AbstractShape shape);
     List<Integer> getCompleteTrueRowsIndex();
     void deleteCompleteTrueRowsFromShapeComponent(List<Integer> completeTrueRowsIndex);
     void increaseRowNumberForShapeComponentInShapeStore(List<Integer> completeTrueRowsIndex);
     void refreshLogicBoard();
     boolean isTheEndOfTheGame();
-    void displayLogicBoard();
+    String createDisplayableLogicBoard();
 }
