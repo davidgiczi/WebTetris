@@ -75,13 +75,7 @@ public class TetrisLogicImpl implements TetrisLogic{
 
     @Override
     public void addShapeToLogicBoard(AbstractShape shape) {
-
-        for (ShapePosition shapePosition : shape.shapeComponent) {
-            if (shapePosition.getLogicBoardIndex() == -1) {
-                return;
-            }
-        }
-
+        
         shape.shapeComponent
                 .forEach(component -> logicBoard
                 .set(component.getLogicBoardIndex(), Boolean.TRUE));
@@ -144,9 +138,9 @@ public class TetrisLogicImpl implements TetrisLogic{
             if (shapePosition.getLogicBoardIndex() == -1) {
                 return false;
             }
-//            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
-//                return false;
-//            }
+            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
+                return false;
+            }
 
         }
 
@@ -167,9 +161,9 @@ public class TetrisLogicImpl implements TetrisLogic{
             if (shapePosition.getLogicBoardIndex() == -1) {
                 return false;
             }
-//            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
-//                return false;
-//            }
+            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
+                return false;
+            }
 
         }
 
@@ -219,9 +213,9 @@ public class TetrisLogicImpl implements TetrisLogic{
             if (shapePosition.getLogicBoardIndex() == -1) {
                 return false;
             }
-//            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
-//                return false;
-//            }
+            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
+                return false;
+            }
         }
 
         return true;
@@ -270,9 +264,9 @@ public class TetrisLogicImpl implements TetrisLogic{
             if (shapePosition.getLogicBoardIndex() == -1) {
                 return false;
             }
-//            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
-//                return false;
-//            }
+            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
+                return false;
+            }
         }
 
         return true;
@@ -321,9 +315,9 @@ public class TetrisLogicImpl implements TetrisLogic{
             if (shapePosition.getLogicBoardIndex() == -1) {
                 return false;
             }
-//            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
-//                return false;
-//            }
+            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
+                return false;
+            }
         }
 
         return true;
@@ -356,9 +350,9 @@ public class TetrisLogicImpl implements TetrisLogic{
             if (shapePosition.getLogicBoardIndex() == -1) {
                 return false;
             }
-//            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
-//                return false;
-//            }
+            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
+                return false;
+            }
         }
 
         return true;
@@ -391,9 +385,9 @@ public class TetrisLogicImpl implements TetrisLogic{
             if (shapePosition.getLogicBoardIndex() == -1) {
                 return false;
             }
-//            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
-//                return false;
-//            }
+            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
+                return false;
+            }
 
         }
 
@@ -450,9 +444,9 @@ public class TetrisLogicImpl implements TetrisLogic{
             if (shapePosition.getLogicBoardIndex() == -1) {
                 return false;
             }
-//            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
-//                return false;
-//            }
+            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
+                return false;
+            }
 
         }
 
@@ -473,9 +467,9 @@ public class TetrisLogicImpl implements TetrisLogic{
             if (shapePosition.getLogicBoardIndex() == -1) {
                 return false;
             }
-//            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
-//                return false;
-//            }
+            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
+                return false;
+            }
 
         }
 
@@ -525,9 +519,9 @@ public class TetrisLogicImpl implements TetrisLogic{
             if (shapePosition.getLogicBoardIndex() == -1) {
                 return false;
             }
-//            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
-//                return false;
-//            }
+            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
+                return false;
+            }
         }
 
         return true;
@@ -576,9 +570,9 @@ public class TetrisLogicImpl implements TetrisLogic{
             if (shapePosition.getLogicBoardIndex() == -1) {
                 return false;
             }
-//            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
-//                return false;
-//            }
+            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
+                return false;
+            }
         }
 
         return true;
@@ -627,9 +621,9 @@ public class TetrisLogicImpl implements TetrisLogic{
             if (shapePosition.getLogicBoardIndex() == -1) {
                 return false;
             }
-//            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
-//                return false;
-//            }
+            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
+                return false;
+            }
         }
 
         return true;
@@ -662,9 +656,9 @@ public class TetrisLogicImpl implements TetrisLogic{
             if (shapePosition.getLogicBoardIndex() == -1) {
                 return false;
             }
-//            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
-//                return false;
-//            }
+            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
+                return false;
+            }
         }
 
         return true;
@@ -697,9 +691,9 @@ public class TetrisLogicImpl implements TetrisLogic{
             if (shapePosition.getLogicBoardIndex() == -1) {
                 return false;
             }
-//            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
-//                return false;
-//            }
+            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
+                return false;
+            }
 
         }
 
@@ -745,9 +739,9 @@ public class TetrisLogicImpl implements TetrisLogic{
             if (shapePosition.getLogicBoardIndex() == -1) {
                 return false;
             }
-//            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
-//                return false;
-//            }
+            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
+                return false;
+            }
 
         }
 
@@ -783,9 +777,9 @@ public class TetrisLogicImpl implements TetrisLogic{
             if (shapePosition.getLogicBoardIndex() == -1) {
                 return false;
             }
-//            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
-//                return false;
-//            }
+            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
+                return false;
+            }
 
         }
 
@@ -814,9 +808,9 @@ public class TetrisLogicImpl implements TetrisLogic{
             if (shapePosition.getLogicBoardIndex() == -1) {
                 return false;
             }
-//            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
-//                return false;
-//            }
+            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
+                return false;
+            }
         }
 
         return true;
@@ -872,9 +866,9 @@ public class TetrisLogicImpl implements TetrisLogic{
             if (shapePosition.getLogicBoardIndex() == -1) {
                 return false;
             }
-//            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
-//                return false;
-//            }
+            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
+                return false;
+            }
         }
         return true;
     }
@@ -929,9 +923,9 @@ public class TetrisLogicImpl implements TetrisLogic{
             if (shapePosition.getLogicBoardIndex() == -1) {
                 return false;
             }
-//            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
-//                return false;
-//            }
+            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
+                return false;
+            }
         }
         return true;
     }
@@ -986,9 +980,9 @@ public class TetrisLogicImpl implements TetrisLogic{
             if (shapePosition.getLogicBoardIndex() == -1) {
                 return false;
             }
-//            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
-//                return false;
-//            }
+            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
+                return false;
+            }
         }
 
         return true;
@@ -1028,9 +1022,9 @@ public class TetrisLogicImpl implements TetrisLogic{
             if (shapePosition.getLogicBoardIndex() == -1) {
                 return false;
             }
-//            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
-//                return false;
-//            }
+            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
+                return false;
+            }
         }
 
         return true;
@@ -1117,9 +1111,9 @@ public class TetrisLogicImpl implements TetrisLogic{
             if (shapePosition.getLogicBoardIndex() == -1) {
                 return false;
             }
-//            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
-//                return false;
-//            }
+            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
+                return false;
+            }
 
         }
 
@@ -1161,9 +1155,9 @@ public class TetrisLogicImpl implements TetrisLogic{
             if (shapePosition.getLogicBoardIndex() == -1) {
                 return false;
             }
-//            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
-//                return false;
-//            }
+            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
+                return false;
+            }
         }
 
         return true;
@@ -1214,9 +1208,9 @@ public class TetrisLogicImpl implements TetrisLogic{
             if (shapePosition.getLogicBoardIndex() == -1) {
                 return false;
             }
-//            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
-//                return false;
-//            }
+            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
+                return false;
+            }
         }
 
         return true;
@@ -1267,9 +1261,9 @@ public class TetrisLogicImpl implements TetrisLogic{
             if (shapePosition.getLogicBoardIndex() == -1) {
                 return false;
             }
-//            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
-//                return false;
-//            }
+            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
+                return false;
+            }
         }
 
         return true;
@@ -1300,9 +1294,9 @@ public class TetrisLogicImpl implements TetrisLogic{
             if (shapePosition.getLogicBoardIndex() == -1) {
                 return false;
             }
-//            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
-//                return false;
-//            }
+            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
+                return false;
+            }
         }
 
         return true;
@@ -1333,23 +1327,17 @@ public class TetrisLogicImpl implements TetrisLogic{
             if (shapePosition.getLogicBoardIndex() == -1) {
                 return false;
             }
-//            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
-//                return false;
-//            }
+            if (logicBoard.get(shapePosition.getLogicBoardIndex())) {
+                return false;
+            }
         }
 
         return true;
     }
 
+   
     @Override
-    public void moveLogicShape(AbstractShape shape) {
-
-        shape.shapeComponent.forEach(component -> logicBoard.set(component.getLogicBoardIndex(), Boolean.TRUE));
-
-    }
-
-    @Override
-    public void clearLogicBoard(List<ShapePosition> deletedShapePosition) {
+    public void addDeletedPositionToLogicBoard(List<ShapePosition> deletedShapePosition) {
 
         deletedShapePosition.forEach(position -> logicBoard.set(position.getLogicBoardIndex(), Boolean.FALSE));
     }
@@ -1546,27 +1534,46 @@ public class TetrisLogicImpl implements TetrisLogic{
     }
 
     @Override
-    public void displayLogicBoard() {
-
-        String ANSI_RESET = "\u001B[0m";
+    public String createDisplayableLogicBoard() {
+        
+        StringBuilder build = new StringBuilder("\n");
+        
         String ANSI_RED = "\u001B[31m";
+        String ANSI_RESET = "\u001B[0m";
+        
 
         for (int i = 0; i < ShapePosition.LENGTH_OF_BOARD; i++) {
-
-            for (int j = 0; j < ShapePosition.WIDTH_OF_BOARD; j++) {
-
-                boolean value = logicBoard.get(i * ShapePosition.WIDTH_OF_BOARD + j);
-
+            
+            for(int j = 0; j < ShapePosition.WIDTH_OF_BOARD; j++){
+            
+             boolean value = logicBoard.get(i * ShapePosition.WIDTH_OF_BOARD + j);
+                
                 if (value) {
-                    System.out.print(ANSI_RED + String.valueOf(value).toUpperCase() + " " + ANSI_RESET);
+                    
+                 build.append(ANSI_RED)
+                      .append("!")
+                      .append(String.valueOf(value).toUpperCase())
+                      .append(ANSI_RESET)
+                      .append(" ");
+                     
+                      
                 } else {
 
-                    System.out.print(value + " ");
+                   build.append(value)
+                        .append(" ");
+                                              
                 }
-
-            }
-            System.out.println();
+                
+            }   
+                    build.append("\n");
         }
-        System.out.println(ANSI_RED + "end of the board" + ANSI_RESET);
+        
+        build.append("\n")
+             .append(ANSI_RED)
+             .append("end of the board")
+             .append(ANSI_RESET);
+        
+             
+        return build.toString();
     }
 }
