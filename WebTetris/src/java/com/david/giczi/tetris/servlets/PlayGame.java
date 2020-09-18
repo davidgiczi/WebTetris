@@ -54,6 +54,8 @@ public class PlayGame extends HttpServlet {
     private void playGame(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
         AbstractShape actualShape = (AbstractShape) request.getSession().getAttribute("actual");
+        List<Boolean> logicBoard = (List<Boolean>) request.getSession().getAttribute("logicboard");
+        logic.setLogicBoard(logicBoard);
 
         if (logic.canShapeBeMovedToDown(actualShape)) {
 
@@ -61,12 +63,15 @@ public class PlayGame extends HttpServlet {
 
         } else {
 
+            //runFullRowProcess(request, response);
+            
+            
             if (logic.isTheEndOfTheGame()) {
 
                 sendTheEndOfTheGame(request, response);
             } else {
 
-                sendResponseData(request, response);
+                turnNextShapeIntoActualShape(request, response);
 
             }
 
@@ -90,8 +95,8 @@ public class PlayGame extends HttpServlet {
             logic.addDeletedPositionToLogicBoard(deletedPosition);
             logic.addShapeToLogicBoard(actualShape);
             request.getSession().setAttribute("logicboard", logic.getLogicBoard());
-            response.getWriter().append(createResponseString(actualShape, deletedPosition, "actual"));
             request.getSession().setAttribute("actual", actualShape);
+            response.getWriter().append(createResponseString(actualShape, deletedPosition, "actual"));       
         }
     }
 
@@ -106,8 +111,8 @@ public class PlayGame extends HttpServlet {
             logic.addDeletedPositionToLogicBoard(deletedPosition);
             logic.addShapeToLogicBoard(actualShape);
             request.getSession().setAttribute("logicboard", logic.getLogicBoard());
-            response.getWriter().append(createResponseString(actualShape, deletedPosition, "actual"));
             request.getSession().setAttribute("actual", actualShape);
+            response.getWriter().append(createResponseString(actualShape, deletedPosition, "actual"));    
         }
     }
 
@@ -119,9 +124,8 @@ public class PlayGame extends HttpServlet {
         logic.addDeletedPositionToLogicBoard(deletedPosition);
         logic.addShapeToLogicBoard(actualShape);
         request.getSession().setAttribute("logicboard", logic.getLogicBoard());
-        response.getWriter().append(createResponseString(actualShape, deletedPosition, "actual"));
         request.getSession().setAttribute("actual", actualShape);
-
+        response.getWriter().append(createResponseString(actualShape, deletedPosition, "actual"));
     }
 
     private synchronized void rotateShape(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -135,31 +139,70 @@ public class PlayGame extends HttpServlet {
             logic.addDeletedPositionToLogicBoard(deletedPosition);
             logic.addShapeToLogicBoard(actualShape);
             request.getSession().setAttribute("logicboard", logic.getLogicBoard());
-            response.getWriter().append(createResponseString(actualShape, deletedPosition, "actual"));
             request.getSession().setAttribute("actual", actualShape);
+            response.getWriter().append(createResponseString(actualShape, deletedPosition, "actual"));      
         }
     }
 
-    private synchronized void sendResponseData(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void calcScore(HttpServletRequest request){
         
-        AbstractShape shape = (AbstractShape) request.getSession().getAttribute("actual");
+        AbstractShape actualShape = (AbstractShape) request.getSession().getAttribute("actual");
         List<Boolean> logicBoard = (List<Boolean>) request.getSession().getAttribute("logicboard");
         logic.setLogicBoard(logicBoard);
-        logic.calcScore(shape);
+        logic.calcScore(actualShape);
         request.getSession().setAttribute("score", logic.getScore());
-        shape = (AbstractShape) request.getSession().getAttribute("next");
-        shape.addShapeToGameBoard();
-        logic.addShapeToLogicBoard(shape);
-        request.getSession().setAttribute("actual", shape);
-        String actualShapeString = createResponseString(shape, null, "actual");
-        shape = shapeFactory.getShape();
-        request.getSession().setAttribute("next", shape);
-        String nextShapeString = createResponseString(shape, null, "next");
+        
+    }
+    
+    private synchronized void turnNextShapeIntoActualShape(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        
+        calcScore(request);
         int score = (int) request.getSession().getAttribute("score");
-        String responseString = nextShapeString + "," + actualShapeString + "," + score;
+        AbstractShape actualShape = (AbstractShape) request.getSession().getAttribute("next");
+        List<AbstractShape> shapeStore = (List<AbstractShape>) request.getSession().getAttribute("shapestore");
+        shapeStore.add(actualShape);
+        request.getSession().setAttribute("shapestore", shapeStore);
+        List<Boolean> logicBoard = (List<Boolean>) request.getSession().getAttribute("logicboard");
+        logic.setLogicBoard(logicBoard);
+        actualShape.addShapeToGameBoard();
+        logic.addShapeToLogicBoard(actualShape);
+        request.getSession().setAttribute("logicboard", logic.getLogicBoard());
+        request.getSession().setAttribute("actual", actualShape);
+        String responseString = createShapeStringResponse(actualShape, request) +
+        "," + score;
+            
         response.getWriter().append(responseString);
     }
-
+    
+    private synchronized void runFullRowProcess(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        
+        List<Boolean> logicBoard = (List<Boolean>) request.getSession().getAttribute("logicboard");
+        List<AbstractShape> shapeStore = (List<AbstractShape>) request.getSession().getAttribute("shapestore");
+        logic.setLogicBoard(logicBoard);
+        logic.setShapeStore(shapeStore);
+        List<Integer> fullRowIndex = logic.getCompleteTrueRowsIndex();
+        if( !fullRowIndex.isEmpty()){
+            logic.deleteCompleteTrueRowsFromShapeComponent(fullRowIndex);
+            logic.increaseRowNumberForShapeComponentInShapeStore(fullRowIndex);
+            logic.refreshLogicBoard();
+        
+        request.getSession().setAttribute("logicboard", logic.getLogicBoard());
+        request.getSession().setAttribute("shapestore", logic.getShapeStore());
+            System.out.println(createFullRowResponseString(request));
+        //response.getWriter().append(createFullRowResponseString(request));
+      }
+        
+    }
+    
+    private String createShapeStringResponse(AbstractShape actualShape, HttpServletRequest request){
+        
+        String actualShapeString = createResponseString(actualShape, null, "actual");
+        AbstractShape nextShape = shapeFactory.getShape();
+        request.getSession().setAttribute("next", nextShape);
+        String nextShapeString = createResponseString(nextShape, null, "next");
+        return nextShapeString + "," + actualShapeString;
+    }
+    
     private String createResponseString(AbstractShape shape, List<ShapePosition> deletedPosition, String instruction) {
 
         StringBuilder build = new StringBuilder(instruction + ",");
@@ -171,7 +214,20 @@ public class PlayGame extends HttpServlet {
         }
         return build.toString().substring(0, build.toString().length() - 1);
     }
-
+    
+    private String createFullRowResponseString(HttpServletRequest request){
+        
+        AbstractShape actualShape = (AbstractShape) request.getSession().getAttribute("next");
+        String responseString = createShapeStringResponse(actualShape, request);
+        List<AbstractShape> shapeStore = (List<AbstractShape>) request.getSession().getAttribute("shapestore");
+        for(AbstractShape shape : shapeStore) {
+            
+            responseString += createResponseString(shape, null, "");
+        }
+        
+        return "fullrow," + responseString;
+    }
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

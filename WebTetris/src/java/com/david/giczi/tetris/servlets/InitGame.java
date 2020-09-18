@@ -36,8 +36,9 @@ public class InitGame extends HttpServlet {
         initLogicBoard();
         
         AbstractShape actualShape = shapeFactory.getShape();
-        request.getSession().setAttribute("actual", actualShape);
         actualShape.addShapeToGameBoard();
+        request.getSession().setAttribute("actual", actualShape);
+       
         logic.addShapeToLogicBoard(actualShape);
         request.getSession().setAttribute("logicboard", logic.getLogicBoard());
         
@@ -49,7 +50,7 @@ public class InitGame extends HttpServlet {
         request.getSession().setAttribute("next", nextShape);
         
         logic.setScore(0);
-        request.getSession().setAttribute("score", 0);
+        request.getSession().setAttribute("score", logic.getScore());
          
         request.setAttribute("actual", createResponseString(actualShape, "actual"));
         request.setAttribute("next", createResponseString(nextShape, "next"));
