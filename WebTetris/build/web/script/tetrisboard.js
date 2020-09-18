@@ -67,7 +67,7 @@ function sendRequest(req) {
             document.location.pathname + "play?move=" + req;
 
 
-    xmlHTTP.open("GET", url, true);
+    xmlHTTP.open("POST", url, true);
     xmlHTTP.send();
 
 
@@ -150,7 +150,7 @@ function displayerController(resp) {
 
     } else if (resp.startsWith("fullrow")) {
 
-
+        alert(resp);
     }
 }
 
