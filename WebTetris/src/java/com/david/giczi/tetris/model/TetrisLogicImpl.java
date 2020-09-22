@@ -52,16 +52,7 @@ public class TetrisLogicImpl implements TetrisLogic{
     public void setShapeStore(List<AbstractShape> shapeStore) {
         this.shapeStore = shapeStore;
     }
-    
    
-    @Override
-    public void initLogicBoard() {
-        for (int i = 0;
-                i < ShapePosition.WIDTH_OF_BOARD * ShapePosition.LENGTH_OF_BOARD; i++) {
-            logicBoard.add(Boolean.FALSE);
-        }
-    }
-
     @Override
     public void clearLogicBoard() {
 
@@ -70,6 +61,15 @@ public class TetrisLogicImpl implements TetrisLogic{
             if (logicBoard.get(i)) {
                 logicBoard.set(i, Boolean.FALSE);
             }
+        }
+    }
+    
+    @Override
+    public void initLogicBoard() {
+        
+        for (int i = 0;
+                i < ShapePosition.WIDTH_OF_BOARD * ShapePosition.LENGTH_OF_BOARD; i++) {
+                logicBoard.add(Boolean.FALSE);
         }
     }
 
@@ -1576,4 +1576,6 @@ public class TetrisLogicImpl implements TetrisLogic{
              
         return build.toString();
     }
+
+    
 }

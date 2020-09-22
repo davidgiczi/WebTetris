@@ -19,6 +19,7 @@ var play = true;
 var level = 1;
 var score = 0;
 var tempo = 1000;
+var levelController = [true,false,false,false,false,false,false,false,false,false];
 
 alert("Nyomógombok:\n\n" +
         leftArrow + "  :  Balra húz\n" +
@@ -56,7 +57,7 @@ function sendRequest(req) {
         if (xmlHTTP.readyState === 4 && xmlHTTP.status === 200) {
 
             var response = xmlHTTP.responseText;
-           
+
             displayerController(response);
 
         }
@@ -67,7 +68,7 @@ function sendRequest(req) {
             document.location.pathname + "play?move=" + req;
 
 
-    xmlHTTP.open("POST", url, true);
+    xmlHTTP.open("GET", url, true);
     xmlHTTP.send();
 
 
@@ -78,13 +79,13 @@ function pressButton(e) {
     e = e || window.event;
 
     if (e.keyCode === 37 && play) {
-        
+
         leftRequest();
     } else if (e.keyCode === 38 && play) {
 
         rotateRequest();
     } else if (e.keyCode === 39 && play) {
-        
+
         rightRequest();
     } else if (e.keyCode === 40 && play) {
 
@@ -120,50 +121,78 @@ function stepRequest() {
 
 function displayerController(resp) {
 
-     if (resp.startsWith("endofgame")) {
-         
+    if (resp.startsWith("endofgame")) {
+
         actualShape = resp.split(",");
         actualShapeColor = actualShape[1];
         theEndOfTheGameProcess();
 
     } else if (resp.startsWith("actual")) {
-        
+
         actualShape = resp.split(",");
         actualShapeColor = actualShape[1];
         clearActualShape();
         displayActualShape();
-        
+
     } else if (resp.startsWith("next")) {
-        
-        nextShape = resp.split(",");
-        displayScore(nextShape[12]);
-        nextShapeColor = nextShape[1];
+
+        resp = resp.split(",");
+        createNextShape(resp);
         clearNextShape();
         displayNextShape();
-        actualShape = [];
-        for(var i = 6; i < nextShape.length - 1; i++){
-            actualShape.push(nextShape[i]);
-        }
-        actualShapeColor = actualShape[1];
+        createActualShape(resp);
         displayActualShape();
+        setLevel(resp[resp.length - 1]);
+        getDelay();
+        displayScore(resp[resp.length - 1]);
         
-
+       
     } else if (resp.startsWith("fullrow")) {
 
-        alert(resp);
+        resp = resp.split(",");
+        createNextShape(resp);
+        clearNextShape();
+        displayNextShape();
+        createActualShape(resp);
+        setLevel(resp[12]);
+        getDelay();
+        displayScore(resp[12]);
+        clearFullRow(resp);
+        increaseRows(resp);
+        displayActualShape();
+        
     }
 }
 
+function createNextShape(respString) {
+
+    nextShape = [];
+    for (var i = 0; i < 6; i++) {
+        nextShape.push(respString[i]);
+    }
+    nextShapeColor = nextShape[1];
+}
+
+function createActualShape(respString) {
+
+    actualShape = [];
+    for (var i = 6; i < 12; i++) {
+        actualShape.push(respString[i]);
+    }
+    actualShapeColor = actualShape[1];
+}
+
+
 function clearActualShape() {
-    
+
     for (var i = 6; i < actualShape.length; i++) {
-        
+
         document.getElementById(actualShape[i]).style.backgroundColor = "lightgray";
     }
 }
 
 function displayActualShape() {
-    
+
     for (var i = 2; i < 6; i++) {
 
         document.getElementById(actualShape[i]).style.backgroundColor = actualShapeColor;
@@ -187,12 +216,42 @@ function displayNextShape() {
     }
 }
 
+function clearFullRow(fullRowIndex) {
+
+    for (var i = 13; i < fullRowIndex.length; i++) {
+
+        for (var j = 0; j < 10; j++) {
+
+            document.getElementById(parseInt(fullRowIndex[i] * 10 + j)).style.backgroundColor = "lightgray";
+
+        }
+
+    }
+
+}
+
+function increaseRows(fullRowIndex) {
+
+    for (var i = 13; i < fullRowIndex.length; i++) {
+
+        for (var index = 199; 0 < index; index--) {
+
+            var shapeColor = document.getElementById(index).style.backgroundColor;
+
+            if (shapeColor !== "lightgray" && parseInt(fullRowIndex[i]) > Math.floor(index / 10)) {
+
+                document.getElementById(index).style.backgroundColor = "lightgray";
+                document.getElementById((index + 10)).style.backgroundColor = shapeColor;
+            }
+        }
+    }
+}
 function displayScore(score) {
     document.getElementById("scoreValue").innerHTML = score;
 }
 
 function theEndOfTheGameProcess() {
-    
+
     displayActualShape();
     clearInterval(run);
     clearInterval(duration);
@@ -259,6 +318,60 @@ function  getDelay() {
     }
 
     run = setInterval(stepRequest, tempo);
+}
+
+function setLevel(scoreValue) {
+    
+    score = parseInt(scoreValue);
+    
+    if (1000 <= score && levelController[0]) {
+        increaseLevelValue();
+        setLevelController(1);
+    } else if (2000 <= score && levelController[1]) {
+        increaseLevelValue();
+        setLevelController(2);
+    } else if (5000 <= score && levelController[2]) {
+        increaseLevelValue();
+        setLevelController(3);
+    } else if (10000 <= score && levelController[3]) {
+        increaseLevelValue();
+        setLevelController(4);
+    } else if (20000 <= score && levelController[4]) {
+        increaseLevelValue();
+        setLevelController(5);
+    } else if (25000 <= score && levelController[5]) {
+        increaseLevelValue();
+        setLevelController(6);
+    } else if (30000 <= score && levelController[6]) {
+        increaseLevelValue();
+        setLevelController(7);
+    } else if (35000 <= score && levelController[7]) {
+        increaseLevelValue();
+        setLevelController(8);
+    } else if (40000 <= score && levelController[8]) {
+        increaseLevelValue();
+        setLevelController(9);
+    } else if (45000 <= score && levelController[9]) {
+        increaseLevelValue();
+        setLevelController(10);
+    }
+
+    displayLevelValue();
+}
+
+function setLevelController(index) {
+
+    levelController = [];
+
+    for (var i = 0; i < 10; i++) {
+
+        if (i !== index) {
+            levelController.push(false);
+        } else {
+            levelController.push(true);
+        }
+
+    }
 }
 
 function displayLevelValue() {
